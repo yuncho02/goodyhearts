@@ -540,14 +540,15 @@ function UploadPage({ navigate }) {
   const [drag, setDrag] = uS(false);
   const [submitted, setSubmitted] = uS(false);
   const [sending, setSending] = uS(false);
-  const inputRef = uR(null);
 
   const [fields, setFields] = uS({ name: "", email: "", title: "", instagram: "", tiktok: "", behance: "", note: "" });
+  const [fileError, setFileError] = uS(false);
   const set = (k) => (e) => setFields((f) => ({ ...f, [k]: e.target.value }));
 
   const handleFile = (f) => {
     if (!f) return;
     setFile(f);
+    setFileError(false);
     if (f.type && f.type.startsWith("image/")) {
       const url = URL.createObjectURL(f);
       setPreview(url);
@@ -577,13 +578,26 @@ function UploadPage({ navigate }) {
 
       <form onSubmit={async (e) => {
         e.preventDefault();
+        if (!file) { setFileError(true); return; }
         setSending(true);
         try {
+          const base64 = await new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result.split(",")[1]);
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+          });
           await fetch(SHEET_URL, {
             method: "POST",
-            body: JSON.stringify(fields),
+            mode: "no-cors",
+            body: JSON.stringify({
+              ...fields,
+              fileName: file.name,
+              mimeType: file.type || "application/octet-stream",
+              fileData: base64,
+            }),
           });
-        } catch (_) {}
+        } catch (err) { console.error("Submit error:", err); }
         setSending(false);
         setSubmitted(true);
       }} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
@@ -598,44 +612,45 @@ function UploadPage({ navigate }) {
         </Field>
 
         {/* Dropzone */}
-        <Field label="Your art" required hint={file ? `Selected: ${file.name} (${(file.size / 1024).toFixed(0)} KB)` : "PNG, JPG, SVG, or PDF · up to 10 MB"}>
-          <div
-            onClick={() => inputRef.current && inputRef.current.click()}
+        <Field label="Your art" required hint={file ? `Selected: ${file.name} (${(file.size / 1024).toFixed(0)} KB)` : fileError ? "Please attach your artwork before submitting." : "PNG, JPG, SVG, or PDF · up to 10 MB"}>
+          <label
+            htmlFor="gh-file-input"
             onDragOver={(e) => {e.preventDefault();setDrag(true);}}
             onDragLeave={() => setDrag(false)}
             onDrop={(e) => {e.preventDefault();setDrag(false);handleFile(e.dataTransfer.files[0]);}}
             style={{
-              border: "2px dashed " + (drag ? "var(--coral)" : "var(--ink-5)"),
-              background: drag ? "var(--coral-tint)" : "var(--surface)",
+              border: "2px dashed " + (drag ? "var(--coral)" : fileError ? "var(--coral)" : "var(--ink-5)"),
+              background: drag ? "var(--coral-tint)" : fileError ? "var(--coral-tint)" : "var(--surface)",
               borderRadius: 12, padding: 32,
               display: "grid", placeItems: "center", textAlign: "center",
               cursor: "pointer", transition: "all .15s ease",
               minHeight: 200
             }}>
-            
+
             {preview ?
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
                 <img src={preview} alt="Preview" style={{ maxHeight: 240, maxWidth: "100%", borderRadius: 8, boxShadow: "var(--shadow-card)" }} />
-                <span style={{ fontSize: 13, color: "var(--ink-3)" }}>Tap to replace</span>
+                <span style={{ fontSize: 13, color: "var(--ink-3)" }}>Click to replace</span>
               </div> :
             file ?
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
                 <IconCheck size={36} stroke="var(--forest)" />
                 <span style={{ fontWeight: 600 }}>{file.name}</span>
-                <span style={{ fontSize: 13, color: "var(--ink-3)" }}>Tap to replace</span>
+                <span style={{ fontSize: 13, color: "var(--ink-3)" }}>Click to replace</span>
               </div> :
-
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, color: "var(--ink-3)" }}>
                 <IconUpload size={32} />
                 <div style={{ fontSize: 16, color: "var(--ink-2)", fontWeight: 500 }}>Drop your file here</div>
-                <div style={{ fontSize: 13 }}>or tap to browse</div>
+                <div style={{ fontSize: 13 }}>or click to browse</div>
               </div>
             }
+
             <input
-              ref={inputRef} type="file" accept="image/*,.pdf,.svg" hidden
+              id="gh-file-input"
+              type="file" accept="image/*,.pdf,.svg"
+              style={{ display: "none" }}
               onChange={(e) => handleFile(e.target.files[0])} />
-            
-          </div>
+          </label>
         </Field>
 
         <Field label="Social media" hint="Optional — so we can tag you when your sticker drops">
