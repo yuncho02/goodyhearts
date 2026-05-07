@@ -15,7 +15,7 @@ var TOKENS = {
   // Each level: fontSize, fontWeight, lineHeight, letterSpacing
   // fontSize uses clamp(mobile, fluid, desktop) for responsiveness
   typeScale: {
-    h1: { fontSize: '3.75rem',   fontWeight: 400, lineHeight: 1.2, letterSpacing: '-0.04em', fontFamily: 'display' },
+    h1: { fontSize: 'clamp(2rem, 8vw, 3.75rem)', fontWeight: 400, lineHeight: 1.2, letterSpacing: '-0.04em', fontFamily: 'display' },
     h2: { fontSize: 'clamp(2rem,   5vw, 4rem)',   fontWeight: 400, lineHeight: 1.0,  letterSpacing: '-0.03em', fontFamily: 'display' },
     h3: { fontSize: 'clamp(1.5rem, 4vw, 3rem)',   fontWeight: 400, lineHeight: 1.1,  letterSpacing: '-0.02em', fontFamily: 'display' },
     h4: { fontSize: 'clamp(1.25rem,3vw, 2rem)',   fontWeight: 400, lineHeight: 1.2,  letterSpacing: '-0.02em', fontFamily: 'display' },
@@ -53,8 +53,8 @@ var TOKENS = {
 
   // ── Spacing ───────────────────────────────────────────────────
   spacing: {
-    pagePx:       '50px',
-    pagePxMobile: '30px',
+    pagePx:       '20px',
+    pagePxMobile: '20px',
     radiusPill:   '84px',
   },
 

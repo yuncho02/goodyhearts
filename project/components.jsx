@@ -57,8 +57,30 @@ const Button = ({ children, variant = "primary", size = "md", as: As = "button",
     }
   };
   const s = { ...styles.base, ...styles.sizes[size], ...styles.variants[variant], ...(rest.style || {}) };
+  const base = styles.variants[variant];
+  const handleMouseEnter = (e) => {
+    if (variant === "coral" || variant === "outline") {
+      e.currentTarget.style.setProperty("background", "#C6494B");
+      e.currentTarget.style.setProperty("border-color", "#C6494B");
+      e.currentTarget.style.setProperty("color", "#fff");
+    } else if (variant === "primary") {
+      e.currentTarget.style.setProperty("background", "#333");
+      e.currentTarget.style.setProperty("border-color", "#333");
+    }
+    rest.onMouseEnter && rest.onMouseEnter(e);
+  };
+  const handleMouseLeave = (e) => {
+    e.currentTarget.style.removeProperty("background");
+    e.currentTarget.style.removeProperty("border-color");
+    e.currentTarget.style.removeProperty("color");
+    if (base.background) e.currentTarget.style.setProperty("background", base.background);
+    if (base.borderColor) e.currentTarget.style.setProperty("border-color", base.borderColor);
+    if (base.color)       e.currentTarget.style.setProperty("color", base.color);
+    rest.onMouseLeave && rest.onMouseLeave(e);
+  };
   return (
-    <As {...rest} style={s} className={"gh-btn gh-btn-" + variant + " " + (rest.className || "")}>
+    <As {...rest} style={s} className={"gh-btn gh-btn-" + variant + " " + (rest.className || "")}
+      onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       {icon ? <span style={{ display: "inline-flex" }}>{icon}</span> : null}
       <span>{children}</span>
       {iconRight ? <span style={{ display: "inline-flex" }}>{iconRight}</span> : null}
@@ -143,51 +165,28 @@ function Header({ route, navigate, cartCount, onOpenCart, onOpenMenu }) {
         maxWidth: 1280, margin: "0 auto",
         display: "flex", alignItems: "center", justifyContent: "space-between",
 
-        gap: 16, padding: "14px var(--page-px)"
+        gap: 16, padding: "14px 24px"
       }}>
         {/* Mobile menu */}
         <button
           aria-label="Open menu"
           onClick={onOpenMenu}
           className="gh-only-mobile"
-          style={{ background: "transparent", border: 0, padding: 8, color: "var(--ink)", display: "none" }}>
-          
+          style={{ background: "transparent", border: 0, padding: 24, color: "var(--ink)", display: "none" }}>
+
           <IconMenu size={26} />
         </button>
 
-        {/* Logo */}
+        {/* Desktop nav */}
+        <nav className="gh-only-desktop" style={{ display: "flex", gap: 28, alignItems: "center" }}>
+          <a onClick={() => navigate("upload")} style={linkStyle("upload")}>Upload Art</a>
+          <a onClick={() => navigate("about")} style={linkStyle("about")}>About</a>
+        </nav>
+
+        {/* Logo — extreme right */}
         <a onClick={() => navigate("home")} style={{ cursor: "pointer", display: "inline-flex" }}>
           <Logo height={28} />
         </a>
-
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          {/* Desktop nav */}
-          <nav className="gh-only-desktop" style={{ display: "flex", gap: 28, alignItems: "center" }}>
-            <a onClick={() => navigate("shop")} style={linkStyle("shop")}>Shop</a>
-            <a onClick={() => navigate("upload")} style={linkStyle("upload")}>Upload Art</a>
-            <a onClick={() => navigate("about")} style={linkStyle("about")}>About</a>
-          </nav>
-
-          {/* Cart */}
-          <button
-            aria-label="Open cart"
-            onClick={onOpenCart}
-            style={{ background: "transparent", border: 0, padding: 8, color: "var(--ink)", position: "relative" }}>
-
-            <IconCart size={26} />
-            {cartCount > 0 ?
-            <span style={{
-              position: "absolute", top: 2, right: 2,
-              background: "var(--coral)", color: "#fff",
-              fontSize: 11, fontWeight: 600,
-              minWidth: 18, height: 18, borderRadius: 9,
-              display: "grid", placeItems: "center",
-              padding: "0 5px",
-              animation: "pop .25s ease both"
-            }}>{cartCount}</span> :
-            null}
-          </button>
-        </div>
       </div>
 
       {/* Impact banner */}
@@ -211,7 +210,6 @@ function Header({ route, navigate, cartCount, onOpenCart, onOpenMenu }) {
 function MobileMenu({ open, onClose, navigate, route }) {
   if (!open) return null;
   const items = [
-  { id: "shop", label: "Shop" },
   { id: "upload", label: "Upload Art" },
   { id: "about", label: "About us" }];
 

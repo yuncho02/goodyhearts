@@ -62,27 +62,25 @@ function HomePage({ navigate, onAddToCart, openProduct, treesPlanted }) {
           gap: "clamp(32px, 5vw, 64px)",
           alignItems: "center",
           minHeight: "80vh",
-          gridTemplateColumns: "1fr", padding: "100px var(--page-px) 64px"
+          gridTemplateColumns: "1fr", padding: "172px var(--page-px) 64px"
         }}>
         
         <div style={{ display: "flex", flexDirection: "column", gap: 24, animation: "fadeUp .6s ease both" }}>
           <h1 style={{
             margin: 0,
             fontFamily: "var(--font-display)",
-            fontSize: "3.75rem",
+            fontSize: 48,
             fontWeight: 400,
-            lineHeight: .95,
+            lineHeight: "56px",
             letterSpacing: "-0.04em",
-            whiteSpace: "nowrap"
           }}>
             Small Art, Big <span style={{ color: "var(--coral)" }}>Hearts</span>.
           </h1>
-          <p style={{ margin: 0, fontSize: 18, color: "var(--ink-3)", maxWidth: 460, lineHeight: 1.55 }}>
-            Submit a sketch. We turn it into a sticker. One sticker sold = one tree planted with our partner foresters. That's the whole loop.
+          <p style={{ margin: 0, fontSize: 20, color: "var(--ink-3)", maxWidth: 460, lineHeight: "24px" }}>
+            Submit a sketch. We turn it into a sticker.
           </p>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 4 }}>
-            <Button variant="coral" size="lg" iconRight={<IconArrowR size={18} />} onClick={() => navigate("shop")}>Shop stickers</Button>
-            <Button variant="outline" size="lg" onClick={() => navigate("upload")}>Upload art</Button>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 12 }}>
+            <Button variant="coral" size="lg" onClick={() => navigate("upload")}>Upload art</Button>
           </div>
         </div>
 
@@ -113,7 +111,7 @@ function HomePage({ navigate, onAddToCart, openProduct, treesPlanted }) {
           <source src="assets/A_black_and_white_animation_fe_Kling_30__74080.mp4" type="video/mp4" />
         </video>
         <div style={{ position: "relative", zIndex: 1 }} />{/* lift content above video */}
-        <div style={{
+        <div className="gh-impact-grid" style={{
           maxWidth: 1280, margin: "0 auto",
           display: "grid",
           gap: "clamp(32px, 6vw, 64px)",
@@ -135,103 +133,6 @@ function HomePage({ navigate, onAddToCart, openProduct, treesPlanted }) {
           </div>
           <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
             <TreeEyes />
-          </div>
-        </div>
-      </section>
-
-      {/* SHOP PREVIEW */}
-      <section style={{ maxWidth: 1280, margin: "0 auto", padding: "80px var(--page-px) 64px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 32, flexWrap: "wrap", gap: 12 }}>
-          <SectionHeader eyebrow="The shop" title="Stickers, all $3 ish" subtitle="Eight tiny artworks, packed and shipped within 48 hours." />
-        </div>
-        <div className="gh-grid" style={{ display: "grid", gap: 24, gridTemplateColumns: "repeat(3, 1fr)" }}>
-          {STICKER_KEYS.slice(0, 3).map((id, i) => {
-            const s = STICKERS[id];
-            return (
-              <article
-                key={id}
-                onClick={() => openProduct(id)}
-                style={{
-                  background: "#fff", borderRadius: 12, overflow: "hidden",
-                  border: "1px solid var(--hairline)",
-                  display: "flex", flexDirection: "column",
-                  cursor: "pointer", transition: "transform .25s ease, box-shadow .25s ease, border-color .25s ease",
-                  animation: "fadeUp .5s ease both", animationDelay: `${i * 60}ms`
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-4px)"; e.currentTarget.style.boxShadow = "0 16px 40px -8px rgba(0,0,0,.14)"; e.currentTarget.style.borderColor = "var(--hairline)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.borderColor = "var(--hairline)"; }}>
-                <div style={{
-                  background: "linear-gradient(180deg, #FAFAF7 0%, #F2F0EB 100%)",
-                  aspectRatio: "1 / 1", display: "grid", placeItems: "center",
-                  padding: 24
-                }}>
-                  <div style={{ animation: "drift 6s ease-in-out infinite" }}><StickerArt id={id} size={170} rotate={i % 2 ? 4 : -4} /></div>
-                </div>
-                <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 6, borderTop: "1px solid var(--hairline)" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
-                    <span style={{ fontFamily: "var(--font-display)", fontSize: 22, letterSpacing: "-0.03em" }}>{s.name}</span>
-                    <span style={{ fontSize: 16, color: "var(--ink-2)", fontWeight: 500 }}>${s.price.toFixed(2)}</span>
-                  </div>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 4 }}>
-                    <span style={{ fontSize: 13, color: "var(--forest)", display: "inline-flex", alignItems: "center", gap: 4 }}>
-                      <IconLeaf size={14} /> {s.trees} trees planted
-                    </span>
-                    <button
-                      onClick={(e) => { e.stopPropagation(); onAddToCart(id, 1); }}
-                      aria-label={`Add ${s.name} to bag`}
-                      style={{
-                        width: 36, height: 36, borderRadius: "50%",
-                        background: "var(--ink)", color: "#fff", border: 0,
-                        display: "grid", placeItems: "center",
-                        transition: "background .15s ease, transform .15s ease"
-                      }}
-                      onMouseEnter={(e) => { e.currentTarget.style.background = "var(--coral)"; e.currentTarget.style.transform = "scale(1.08)"; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.background = "var(--ink)"; e.currentTarget.style.transform = "none"; }}>
-                      <IconPlus size={18} />
-                    </button>
-                  </div>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-        <div style={{ textAlign: "center", marginTop: 40 }}>
-          <Button variant="outline" size="lg" iconRight={<IconArrowR size={18} />} onClick={() => navigate("shop")}>See all stickers</Button>
-        </div>
-      </section>
-
-      {/* ARTIST CALLOUT */}
-      <section style={{ background: "var(--cream)", position: "relative", overflow: "hidden" }}>
-        <div style={{
-          maxWidth: 1280, margin: "0 auto",
-          padding: "50px var(--page-px)",
-          position: "relative"
-        }}>
-          <div style={{ position: "absolute", right: -20, top: -20, opacity: .9 }}><StickerArt id="heart" size={140} rotate={20} /></div>
-          <div style={{ position: "absolute", right: 80, bottom: -30, opacity: .9, display: "none" }} className="gh-show-md"><StickerArt id="cloud" size={120} rotate={-10} /></div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 18, maxWidth: 520, position: "relative", zIndex: 1 }}>
-            <span style={{ fontSize: 13, color: "var(--coral)", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 600 }}>Are you an artist?</span>
-            <h2 style={{ margin: 0, fontFamily: "var(--font-display)", fontSize: "clamp(36px, 5vw, 56px)", lineHeight: 1.05, letterSpacing: "-0.03em", textWrap: "balance" }}>
-              Doodle once,<br />change everything.
-            </h2>
-            <p style={{ margin: 0, color: "var(--ink-2)", fontSize: 17, lineHeight: 1.55 }}>
-              Submit a piece of art. If we pick it, it becomes a sticker — and you get a cut of every sale, with a tree planted in your name.
-            </p>
-            <div>
-              <Button variant="primary" size="lg" iconRight={<IconArrowR size={18} />} onClick={() => navigate("upload")}>Upload your art</Button>
-            </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginTop: 16, maxWidth: 380 }}>
-              {[
-                { n: "1", t: "Submit your art" },
-                { n: "2", t: "Converted to stickers" },
-                { n: "3", t: "Trees planted" }
-              ].map((s) =>
-                <div key={s.n} style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                  <span style={{ fontFamily: "var(--font-display)", fontSize: 36, color: "var(--coral)", letterSpacing: "-0.03em", lineHeight: 1 }}>{s.n}</span>
-                  <span style={{ fontSize: 13, color: "var(--ink-2)" }}>{s.t}</span>
-                </div>
-              )}
-            </div>
           </div>
         </div>
       </section>
@@ -765,9 +666,9 @@ function UploadPage({ navigate }) {
           <Textarea placeholder="What were you thinking? Where'd it come from?" rows={3} value={fields.note} onChange={set("note")} />
         </Field>
 
-        <div style={{ display: "flex", justifyContent: "flex-end", gap: 12, marginTop: 8 }}>
+        <div className="gh-form-actions" style={{ display: "flex", justifyContent: "flex-end", gap: 12, marginTop: 8 }}>
           <Button variant="outline" size="lg" type="button" onClick={() => navigate("home")}>Cancel</Button>
-          <Button variant="coral" size="lg" type="submit" disabled={sending} iconRight={<IconArrowR size={18} />}>
+          <Button variant="coral" size="lg" type="submit" disabled={sending}>
             {sending ? "Sending…" : "Submit for review"}
           </Button>
         </div>
