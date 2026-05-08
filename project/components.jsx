@@ -165,17 +165,12 @@ function Header({ route, navigate, cartCount, onOpenCart, onOpenMenu }) {
         maxWidth: 1280, margin: "0 auto",
         display: "flex", alignItems: "center", justifyContent: "space-between",
 
-        gap: 16, padding: "14px 24px"
+        gap: 16, padding: "14px var(--page-px)"
       }}>
-        {/* Mobile menu */}
-        <button
-          aria-label="Open menu"
-          onClick={onOpenMenu}
-          className="gh-only-mobile"
-          style={{ background: "transparent", border: 0, padding: 24, color: "var(--ink)", display: "none" }}>
-
-          <IconMenu size={26} />
-        </button>
+        {/* Logo — left */}
+        <a onClick={() => navigate("home")} style={{ cursor: "pointer", display: "inline-flex" }}>
+          <Logo height={28} />
+        </a>
 
         {/* Desktop nav */}
         <nav className="gh-only-desktop" style={{ display: "flex", gap: 28, alignItems: "center" }}>
@@ -183,10 +178,14 @@ function Header({ route, navigate, cartCount, onOpenCart, onOpenMenu }) {
           <a onClick={() => navigate("about")} style={linkStyle("about")}>About</a>
         </nav>
 
-        {/* Logo — extreme right */}
-        <a onClick={() => navigate("home")} style={{ cursor: "pointer", display: "inline-flex" }}>
-          <Logo height={28} />
-        </a>
+        {/* Mobile menu — right */}
+        <button
+          aria-label="Open menu"
+          onClick={onOpenMenu}
+          className="gh-only-mobile"
+          style={{ background: "transparent", border: 0, padding: 0, color: "var(--ink)", display: "none" }}>
+          <IconMenu size={26} />
+        </button>
       </div>
 
       {/* Impact banner */}
@@ -220,10 +219,10 @@ function MobileMenu({ open, onClose, navigate, route }) {
       animation: "fadeIn .2s ease both",
       display: "flex", flexDirection: "column"
     }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "14px 24px", borderBottom: "1px solid var(--hairline)" }}>
-        <Logo height={26} />
-        <button onClick={onClose} aria-label="Close menu" style={{ background: "transparent", border: 0, padding: 8 }}>
-          <IconClose size={28} />
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "14px var(--page-px)", borderBottom: "1px solid var(--hairline)" }}>
+        <Logo height={28} />
+        <button onClick={onClose} aria-label="Close menu" style={{ background: "transparent", border: 0, padding: 0 }}>
+          <IconClose size={26} />
         </button>
       </div>
       <nav style={{ padding: "32px 28px", display: "flex", flexDirection: "column", gap: 22 }}>
@@ -371,11 +370,10 @@ function Footer({ navigate }) {
           </div>
 
           <div>
-            <div style={{ fontSize: 13, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em", color: "rgba(255,255,255,.5)", marginBottom: 16 }}>Shop</div>
+            <div style={{ fontSize: 13, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em", color: "rgba(255,255,255,.5)", marginBottom: 16 }}>Menu</div>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 12 }}>
               <li><a onClick={() => navigate("upload")} style={{ cursor: "pointer", color: "rgba(255,255,255,.85)", fontSize: 14 }}>Upload art</a></li>
-              <li><a style={{ cursor: "pointer", color: "rgba(255,255,255,.85)", fontSize: 14 }}>Member</a></li>
-              <li><a style={{ cursor: "pointer", color: "rgba(255,255,255,.85)", fontSize: 14 }}>Policy</a></li>
+              <li><a onClick={() => navigate("about")} style={{ cursor: "pointer", color: "rgba(255,255,255,.85)", fontSize: 14 }}>About us</a></li>
             </ul>
           </div>
 
@@ -383,31 +381,11 @@ function Footer({ navigate }) {
             <div style={{ fontSize: 13, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em", color: "rgba(255,255,255,.5)", marginBottom: 16 }}>Reach out</div>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 12 }}>
               <li><a href="https://www.instagram.com/goodyheartsclub/?hl=en" target="_blank" rel="noopener noreferrer" style={{ cursor: "pointer", color: "rgba(255,255,255,.85)", fontSize: 14 }}>Instagram</a></li>
-              <li><a style={{ cursor: "pointer", color: "rgba(255,255,255,.85)", fontSize: 14 }}>LinkedIn</a></li>
+
               <li><a href="mailto:goodyheartsclub@gmail.com" style={{ cursor: "pointer", color: "rgba(255,255,255,.85)", fontSize: 14 }}>goodyheartsclub@gmail.com</a></li>
             </ul>
           </div>
 
-          <div>
-            <div style={{ fontSize: 13, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em", color: "rgba(255,255,255,.5)", marginBottom: 16 }}>Newsletter</div>
-            <p style={{ color: "rgba(255,255,255,.65)", fontSize: 14, margin: "0 0 12px" }}>New stickers, new trees. Once a month.</p>
-            <form onSubmit={(e) => e.preventDefault()} style={{ display: "flex", gap: 8 }}>
-              <input
-                type="email" placeholder="you@email.com"
-                style={{
-                  flex: 1, height: 44, padding: "0 14px",
-                  background: "transparent",
-                  border: "1px solid rgba(255,255,255,.25)",
-                  borderRadius: 6, color: "#fff",
-                  fontFamily: "var(--font-body)", fontSize: 14, outline: "none"
-                }} />
-              
-              <button type="submit" style={{
-                height: 44, padding: "0 16px", borderRadius: 6,
-                background: "var(--coral)", color: "#fff", border: 0, fontWeight: 500, cursor: "pointer", fontSize: 14
-              }}>Join</button>
-            </form>
-          </div>
         </div>
 
         <div style={{

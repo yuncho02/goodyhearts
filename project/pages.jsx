@@ -657,6 +657,7 @@ function UploadPage({ navigate }) {
 
   return (
     <div data-screen-label="04 Upload" style={{ maxWidth: 720, margin: "0 auto", padding: "clamp(40px, 6vw, 80px) clamp(20px, 4vw, 48px) clamp(48px, 8vw, 96px)" }}>
+      <img src="assets/doodle.png" alt="" style={{ width: 200, height: "auto", marginBottom: 24, display: "block", margin: "0 auto 24px" }} />
       <SectionHeader eyebrow="Upload Art" title="Send us your doodle." subtitle="We accept hand-drawn sketches, vectors, watercolors — anything under 10 MB. If we pick it, you get paid per sale and a tree in your name." />
 
       <form onSubmit={async (e) => {
