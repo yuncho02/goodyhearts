@@ -137,6 +137,35 @@ function HomePage({ navigate, onAddToCart, openProduct, treesPlanted }) {
         </div>
       </section>
 
+      {/* Sticker Gallery */}
+      <section style={{ maxWidth: 1280, margin: "0 auto", padding: "80px var(--page-px) 96px", overflow: "hidden" }}>
+        <SectionHeader eyebrow="Sticker collection" title="Our artwork." subtitle="Every sticker is made from art submitted by independent artists." />
+        <div className="gh-grid" style={{ display: "grid", gap: 32, gridTemplateColumns: "repeat(3, 1fr)", marginTop: 48 }}>
+          {STICKER_KEYS.map((id, i) => {
+            const s = STICKERS[id];
+            return (
+              <div key={id} style={{
+                display: "flex", flexDirection: "column", alignItems: "center", gap: 16,
+                animation: "fadeUp .5s ease both", animationDelay: `${i * 60}ms`
+              }}>
+                <div style={{
+                  width: "100%", aspectRatio: "1 / 1",
+                  background: "linear-gradient(180deg, #FAFAF7 0%, #F2F0EB 100%)",
+                  borderRadius: 16, overflow: "hidden",
+                  display: "grid", placeItems: "center",
+                  padding: 24,
+                }}>
+                  <div style={{ animation: "drift 6s ease-in-out infinite", animationDelay: `${i * 0.4}s` }}>
+                    <StickerArt id={id} size={180} rotate={i % 2 ? 3 : -3} />
+                  </div>
+                </div>
+                <span style={{ fontFamily: "var(--font-display)", fontSize: 20, letterSpacing: "-0.02em", textAlign: "center" }}>{s.name}</span>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
     </div>);
 
 }
@@ -451,6 +480,25 @@ function AboutPage({ navigate, treesPlanted }) {
         </div>
       </section>
 
+      {/* One Tree Planted */}
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "24px clamp(20px, 4vw, 48px) 0", display: "flex", justifyContent: "center" }}>
+        <a
+          href="https://onetreeplanted.org"
+          target="_blank"
+          style={{
+            display: "inline-flex", alignItems: "center", gap: 8,
+            background: "var(--coral)", color: "#fff",
+            padding: "12px 24px", borderRadius: "var(--radius-pill)",
+            fontSize: 14, fontWeight: 600, textDecoration: "none",
+            transition: "opacity .15s ease"
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.opacity = ".85"}
+          onMouseLeave={(e) => e.currentTarget.style.opacity = "1"}
+        >
+          <IconLeaf size={16} /> One Tree Planted — our planting partner ↗
+        </a>
+      </div>
+
       {/* How it works */}
       <section style={{ maxWidth: 1080, margin: "0 auto", padding: "clamp(48px, 8vw, 96px) clamp(20px, 4vw, 48px)" }}>
         <SectionHeader eyebrow="How it works" title="The whole loop." align="center" />
@@ -458,7 +506,7 @@ function AboutPage({ navigate, treesPlanted }) {
           {[
           { n: "01", t: "An artist submits", d: "A sketch, a doodle, a watercolor. We accept anything that makes us smile." },
           { n: "02", t: "We make stickers", d: "We die-cut, package, and add them to the shop. Artists get a cut of each sale." },
-          { n: "03", t: "You buy one", d: "$3 ish. We pack it within 48 hours and ship from Seattle, USPS." },
+          { n: "03", t: "You buy one", d: "You buy one with $3. We pack it within 48 hours and ship it from Seattle, USPS." },
           { n: "04", t: "A tree gets planted", d: "Our forestry partner plants one tree per sticker, photographed quarterly." }].
           map((s) =>
           <div key={s.n} style={{
@@ -531,6 +579,41 @@ function AboutPage({ navigate, treesPlanted }) {
 
 }
 
+// ═════════ GALLERY ═════════
+function GalleryPage() {
+  return (
+    <div data-screen-label="Gallery">
+      <section style={{ maxWidth: 1280, margin: "0 auto", padding: "80px var(--page-px) 96px", overflow: "hidden" }}>
+        <SectionHeader eyebrow="Sticker collection" title="Our artwork." subtitle="Every sticker is made from art submitted by independent artists." />
+        <div className="gh-grid" style={{ display: "grid", gap: 32, gridTemplateColumns: "repeat(3, 1fr)", marginTop: 48 }}>
+          {STICKER_KEYS.map((id, i) => {
+            const s = STICKERS[id];
+            return (
+              <div key={id} style={{
+                display: "flex", flexDirection: "column", alignItems: "center", gap: 16,
+                animation: "fadeUp .5s ease both", animationDelay: `${i * 60}ms`
+              }}>
+                <div style={{
+                  width: "100%", aspectRatio: "1 / 1",
+                  background: "linear-gradient(180deg, #FAFAF7 0%, #F2F0EB 100%)",
+                  borderRadius: 16, overflow: "hidden",
+                  display: "grid", placeItems: "center",
+                  padding: 24,
+                }}>
+                  <div style={{ animation: "drift 6s ease-in-out infinite", animationDelay: `${i * 0.4}s` }}>
+                    <StickerArt id={id} size={180} rotate={i % 2 ? 3 : -3} />
+                  </div>
+                </div>
+                <span style={{ fontFamily: "var(--font-display)", fontSize: 20, letterSpacing: "-0.02em", textAlign: "center" }}>{s.name}</span>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+    </div>
+  );
+}
+
 const SHEET_URL = "https://script.google.com/macros/s/AKfycbwxBuuL5a_IQbSUHnAzxrbBkm5uq-p_nE_EvnnxurxnfTAITO9q42Ug1Y2sWnYcqzUC_Q/exec";
 
 // ═════════ UPLOAD ART ═════════
@@ -563,7 +646,7 @@ function UploadPage({ navigate }) {
         <div style={{ animation: "pop .5s ease both", display: "inline-block" }}>
           <StickerArt id="heart" size={160} rotate={-6} />
         </div>
-        <h1 style={{ margin: "24px 0 12px", fontFamily: "var(--font-display)", fontSize: "clamp(36px, 6vw, 56px)", letterSpacing: "-0.03em" }}>Got it!</h1>
+        <h1 style={{ margin: "24px 0 12px", fontFamily: "var(--font-display)", fontSize: "clamp(36px, 6vw, 56px)", letterSpacing: "-0.03em" }}>We've received your submission</h1>
         <p style={{ color: "var(--ink-3)", fontSize: 17, maxWidth: 480, margin: "0 auto 32px", lineHeight: 1.55 }}>
           We'll review your submission within 5 business days and email you back. If we pick it, you'll get a contract and a tree planted in your name.
         </p>
@@ -601,7 +684,7 @@ function UploadPage({ navigate }) {
         setSending(false);
         setSubmitted(true);
       }} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-        <Field label="Your name" required>
+        <Field label="Your name/nickname" required>
           <Input required placeholder="Jane Sketcher" value={fields.name} onChange={set("name")} />
         </Field>
         <Field label="Email" required>
@@ -825,4 +908,4 @@ function VenmoSheet({ open, onClose, items, onComplete }) {
   );
 }
 
-Object.assign(window, { HomePage, ShopPage, ProductPage, AboutPage, UploadPage, VenmoSheet });
+Object.assign(window, { HomePage, ShopPage, ProductPage, AboutPage, UploadPage, VenmoSheet, GalleryPage });

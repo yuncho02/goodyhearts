@@ -117,6 +117,7 @@ function App() {
         {route === "product" && <ProductPage id={productId} onAddToCart={addToCart} openProduct={openProduct} navigate={navigate} />}
         {route === "about"   && <AboutPage navigate={navigate} treesPlanted={trees} />}
         {route === "upload"  && <UploadPage navigate={navigate} />}
+        {route === "gallery" && <GalleryPage />}
       </main>
 
       <Footer navigate={navigate} />
@@ -196,7 +197,9 @@ const responsiveCSS = `
 @media (max-width: 720px) {
   .gh-only-mobile  { display: inline-flex !important; }
   .gh-only-desktop { display: none !important; }
-  .gh-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .gh-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 16px !important; }
+  .gh-grid > * { min-width: 0; overflow: hidden; }
+  .gh-gallery-card { padding: 16px !important; }
   .gh-hero { padding-top: 48px !important; padding-bottom: 40px !important; }
   .gh-impact-grid { grid-template-columns: 1fr !important; }
   .gh-form-actions { flex-direction: column !important; }

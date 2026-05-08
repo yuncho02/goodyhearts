@@ -191,13 +191,13 @@ function Header({ route, navigate, cartCount, onOpenCart, onOpenMenu }) {
 
       {/* Impact banner */}
       <div style={{
-        background: "var(--mint)",
+        background: "var(--coral-tint)",
         textAlign: "center",
         padding: "8px 16px",
         fontSize: 14,
-        color: "var(--forest-d)",
+        color: "var(--coral)",
         letterSpacing: "-0.01em",
-        borderBottom: "1px solid rgba(63,97,53,.12)"
+        borderBottom: "1px solid rgba(248,92,94,.15)"
       }}>
         <IconLeaf size={14} style={{ display: "inline", verticalAlign: "-2px", marginRight: 6 }} />
         1 sticker = 1 tree planted &nbsp;·&nbsp; <strong style={{ fontWeight: 600 }}>27</strong> trees and growing
