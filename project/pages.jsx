@@ -506,7 +506,7 @@ function AboutPage({ navigate, treesPlanted }) {
           {[
           { n: "01", t: "An artist submits", d: "A sketch, a doodle, a watercolor. We accept anything that makes us smile." },
           { n: "02", t: "We make stickers", d: "We die-cut, package, and add them to the shop. Artists get a cut of each sale." },
-          { n: "03", t: "You buy one", d: "You buy one with $3. We pack it within 48 hours and ship it from Seattle, USPS." },
+          { n: "03", t: "You buy one", d: "You buy one sticker with $1. We pack it within 48 hours and ship it from Seattle, USPS." },
           { n: "04", t: "A tree gets planted", d: "Our forestry partner plants one tree per sticker, photographed quarterly." }].
           map((s) =>
           <div key={s.n} style={{

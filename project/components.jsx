@@ -373,7 +373,6 @@ function Footer({ navigate }) {
           <div>
             <div style={{ fontSize: 13, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em", color: "rgba(255,255,255,.5)", marginBottom: 16 }}>Shop</div>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 12 }}>
-              <li><a onClick={() => navigate("shop")} style={{ cursor: "pointer", color: "rgba(255,255,255,.85)", fontSize: 14 }}>All stickers</a></li>
               <li><a onClick={() => navigate("upload")} style={{ cursor: "pointer", color: "rgba(255,255,255,.85)", fontSize: 14 }}>Upload art</a></li>
               <li><a style={{ cursor: "pointer", color: "rgba(255,255,255,.85)", fontSize: 14 }}>Member</a></li>
               <li><a style={{ cursor: "pointer", color: "rgba(255,255,255,.85)", fontSize: 14 }}>Policy</a></li>
