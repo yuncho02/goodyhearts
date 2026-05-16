@@ -650,6 +650,8 @@ function UploadPage({ navigate }) {
 
         <h2 style={{ margin: "0 0 24px", fontFamily: "var(--font-display)", fontSize: "clamp(28px, 5vw, 40px)", letterSpacing: "-0.03em" }}>Hey Artist,</h2>
 
+        <img src="assets/booth.svg" alt="Goody Hearts Club booth" style={{ width: "100%", height: "auto", display: "block", marginBottom: 32 }} />
+
         <p style={bodyStyle}>
           Your art just landed in our inbox — thank you for trusting us with it! We're so excited to take a look.
         </p>
