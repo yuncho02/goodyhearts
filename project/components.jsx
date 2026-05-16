@@ -109,7 +109,7 @@ const Input = ({ ...rest }) =>
     borderRadius: 6,
     border: "1px solid var(--hairline)",
     background: "var(--surface)",
-    fontSize: 15,
+    fontSize: 16,
     fontFamily: "var(--font-body)",
     letterSpacing: "-0.01em",
     color: "var(--ink)",
@@ -127,7 +127,7 @@ const Textarea = ({ ...rest }) =>
   {...rest}
   style={{
     minHeight: 100, padding: 14, borderRadius: 6, border: "1px solid var(--hairline)",
-    background: "var(--surface)", fontSize: 15, fontFamily: "var(--font-body)", letterSpacing: "-0.01em",
+    background: "var(--surface)", fontSize: 16, fontFamily: "var(--font-body)", letterSpacing: "-0.01em",
     color: "var(--ink)", resize: "vertical", outline: "none", transition: "border-color .15s, box-shadow .15s",
     ...rest.style
   }}
