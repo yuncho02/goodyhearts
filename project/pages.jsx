@@ -466,9 +466,9 @@ function AboutPage({ navigate, treesPlanted }) {
         <div style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 32, textAlign: "center" }}>
           {[
           { v: treesPlanted, l: "Trees planted", c: "var(--coral)" },
-          { v: 142, l: "Stickers sold", c: "#fff" },
-          { v: 18, l: "Artists onboard", c: "var(--coral)" },
-          { v: 6, l: "Forest acres reached", c: "#fff" }].
+          { v: treesPlanted, l: "Stickers sold", c: "#fff" },
+          { v: 7, l: "Artists onboard", c: "var(--coral)" },
+          { v: 0, l: "Forest acres reached", c: "#fff" }].
           map((s, i) =>
           <div key={i}>
               <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(56px, 8vw, 96px)", color: s.c, letterSpacing: "-0.04em", lineHeight: 1 }}>
@@ -527,7 +527,7 @@ function AboutPage({ navigate, treesPlanted }) {
         <SectionHeader eyebrow="The team" title="Meet the club." align="center" />
         <div style={{ display: "grid", gap: 32, gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", marginTop: 48 }}>
           {[
-            { name: "Sauhee Han",  role: "Club President & PM",    img: "assets/Sauhee.jpeg",  url: "https://www.linkedin.com/in/shannon-sauhee-han-451101194/" },
+            { name: "Sauhee Han",  role: "Club President & PM",    img: "assets/SauheeHan.jpeg",  url: "https://www.linkedin.com/in/shannon-sauhee-han-451101194/" },
             { name: "Peggy",       role: "Social Media Manager",   img: "assets/Peggy.jpeg",   url: "https://www.linkedin.com/in/peggyshen/" },
             { name: "Prerna",      role: "Website Designer",       img: "assets/Prerna.png",   url: "https://www.linkedin.com/in/prernaakashyap/" },
             { name: "June Cho",    role: "Website Developer",      img: "assets/Yun.JPG",      url: "https://www.linkedin.com/in/junecho02/" },
@@ -641,16 +641,35 @@ function UploadPage({ navigate }) {
   };
 
   if (submitted) {
+    const bodyStyle = { fontSize: 16, color: "var(--ink-2)", lineHeight: 1.7, margin: "0 0 16px" };
     return (
-      <div data-screen-label="Upload Success" style={{ maxWidth: 720, margin: "0 auto", padding: "clamp(48px, 10vw, 120px) clamp(20px, 4vw, 48px)", textAlign: "center" }}>
-        <div style={{ animation: "pop .5s ease both", display: "inline-block" }}>
-          <StickerArt id="heart" size={160} rotate={-6} />
+      <div data-screen-label="Upload Success" style={{ maxWidth: 600, margin: "0 auto", padding: "clamp(48px, 10vw, 96px) clamp(20px, 4vw, 48px)" }}>
+        <div style={{ animation: "pop .5s ease both", display: "inline-block", marginBottom: 32 }}>
+          <StickerArt id="heart" size={80} rotate={-6} />
         </div>
-        <h1 style={{ margin: "24px 0 12px", fontFamily: "var(--font-display)", fontSize: "clamp(36px, 6vw, 56px)", letterSpacing: "-0.03em" }}>We've received your submission</h1>
-        <p style={{ color: "var(--ink-3)", fontSize: 17, maxWidth: 480, margin: "0 auto 32px", lineHeight: 1.55 }}>
-          We'll review your submission within 5 business days and email you back. If we pick it, you'll get a contract and a tree planted in your name.
+
+        <h2 style={{ margin: "0 0 24px", fontFamily: "var(--font-display)", fontSize: "clamp(28px, 5vw, 40px)", letterSpacing: "-0.03em" }}>Hey Artist,</h2>
+
+        <p style={bodyStyle}>
+          Your art just landed in our inbox — thank you for trusting us with it! We're so excited to take a look.
         </p>
-        <Button variant="coral" size="lg" onClick={() => navigate("home")}>Back to shop</Button>
+        <p style={bodyStyle}>
+          Here's what happens from here:<br />
+          Our team reviews every submission within a week.
+        </p>
+
+        <ul style={{ padding: "0 0 0 20px", margin: "0 0 24px", display: "flex", flexDirection: "column", gap: 12 }}>
+          <li style={{ ...bodyStyle, margin: 0 }}>To keep our little community in line with the values we care about, we take our time reading every submission with care.</li>
+          <li style={{ ...bodyStyle, margin: 0 }}>If it's a yes, you will see it on the website gallery within the week (no fine print, no pressure).</li>
+          <li style={{ ...bodyStyle, margin: 0 }}>If you ever want us to remove your art as a sticker, please email us at <a href="mailto:goodyheartsclub@gmail.com" style={{ color: "var(--coral)", textDecoration: "underline" }}>goodyheartsclub@gmail.com</a> using the email you submitted this form with.</li>
+        </ul>
+
+        <p style={bodyStyle}>In the meantime, feel free to doodle more. The world can always use it.</p>
+
+        <p style={{ ...bodyStyle, marginTop: 32, marginBottom: 4 }}>Talk soon,</p>
+        <p style={{ margin: "0 0 40px", fontFamily: "var(--font-display)", fontSize: "clamp(24px, 4vw, 32px)", letterSpacing: "-0.03em" }}>The Goody Hearts Club &lt;3</p>
+
+        <Button variant="coral" size="lg" onClick={() => navigate("upload")}>Submit another piece</Button>
       </div>);
 
   }
@@ -705,27 +724,21 @@ function UploadPage({ navigate }) {
             style={{
               border: "2px dashed " + (drag ? "var(--coral)" : fileError ? "var(--coral)" : "var(--ink-5)"),
               background: drag ? "var(--coral-tint)" : fileError ? "var(--coral-tint)" : "var(--surface)",
-              borderRadius: 12, padding: 32,
+              borderRadius: "50%",
+              width: 173, height: 173,
+              margin: "0 auto",
               display: "grid", placeItems: "center", textAlign: "center",
               cursor: "pointer", transition: "all .15s ease",
-              minHeight: 200
+              overflow: "hidden", position: "relative",
             }}>
 
             {preview ?
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
-                <img src={preview} alt="Preview" style={{ maxHeight: 240, maxWidth: "100%", borderRadius: 8, boxShadow: "var(--shadow-card)" }} />
-                <span style={{ fontSize: 13, color: "var(--ink-3)" }}>Click to replace</span>
-              </div> :
+            <img src={preview} alt="Preview" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} /> :
             file ?
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
-                <IconCheck size={36} stroke="var(--forest)" />
-                <span style={{ fontWeight: 600 }}>{file.name}</span>
-                <span style={{ fontSize: 13, color: "var(--ink-3)" }}>Click to replace</span>
-              </div> :
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, color: "var(--ink-3)" }}>
-                <IconUpload size={32} />
-                <div style={{ fontSize: 16, color: "var(--ink-2)", fontWeight: 500 }}>Drop your file here</div>
-                <div style={{ fontSize: 13 }}>or click to browse</div>
+            <IconCheck size={36} stroke="var(--forest)" /> :
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, color: "var(--ink-3)" }}>
+                <IconUpload size={28} />
+                <div style={{ fontSize: 13, color: "var(--ink-2)", fontWeight: 500, lineHeight: 1.3 }}>Drop here<br/>or browse</div>
               </div>
             }
 

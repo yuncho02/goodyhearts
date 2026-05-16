@@ -369,6 +369,7 @@ function Footer({ navigate }) {
             </p>
           </div>
 
+          {/* Footer nav hidden — re-enable when other pages are ready
           <div>
             <div style={{ fontSize: 13, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em", color: "rgba(255,255,255,.5)", marginBottom: 16 }}>Menu</div>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 12 }}>
@@ -376,6 +377,7 @@ function Footer({ navigate }) {
               <li><a onClick={() => navigate("about")} style={{ cursor: "pointer", color: "rgba(255,255,255,.85)", fontSize: 14 }}>About us</a></li>
             </ul>
           </div>
+          */}
 
           <div>
             <div style={{ fontSize: 13, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em", color: "rgba(255,255,255,.5)", marginBottom: 16 }}>Reach out</div>

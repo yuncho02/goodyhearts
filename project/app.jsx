@@ -26,7 +26,7 @@ const FONTS = ["Yeseva One", "Fraunces", "Caveat", "Gaegu", "Playfair Display"];
 
 function App() {
   const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
-  const [route, setRoute] = useS("home");
+  const [route, setRoute] = useS("upload");
   const [productId, setProductId] = useS("petal");
   const [menuOpen, setMenuOpen] = useS(false);
   const [cartOpen, setCartOpen] = useS(false);
@@ -104,12 +104,14 @@ function App() {
 
   return (
     <>
+      {/* Header hidden — re-enable when site is ready to go public
       <Header
         route={route} navigate={navigate}
         cartCount={cartCount}
         onOpenCart={() => setCartOpen(true)}
         onOpenMenu={() => setMenuOpen(true)}
       />
+      */}
 
       <main>
         {route === "home"    && <HomePage navigate={navigate} onAddToCart={addToCart} openProduct={openProduct} treesPlanted={trees} />}
