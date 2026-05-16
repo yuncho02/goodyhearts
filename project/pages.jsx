@@ -643,7 +643,7 @@ function UploadPage({ navigate }) {
   if (submitted) {
     const bodyStyle = { fontSize: 16, color: "var(--ink-2)", lineHeight: 1.7, margin: "0 0 16px" };
     return (
-      <div data-screen-label="Upload Success" style={{ maxWidth: 600, margin: "0 auto", padding: "clamp(48px, 10vw, 96px) clamp(20px, 4vw, 48px)" }}>
+      <div data-screen-label="Upload Success" style={{ maxWidth: 720, margin: "0 auto", padding: "clamp(40px, 6vw, 80px) clamp(20px, 4vw, 48px) clamp(48px, 8vw, 96px)" }}>
         <div style={{ animation: "pop .5s ease both", display: "inline-block", marginBottom: 32 }}>
           <StickerArt id="heart" size={80} rotate={-6} />
         </div>
@@ -669,7 +669,7 @@ function UploadPage({ navigate }) {
         <p style={{ ...bodyStyle, marginTop: 32, marginBottom: 4 }}>Talk soon,</p>
         <p style={{ margin: "0 0 40px", fontFamily: "var(--font-display)", fontSize: "clamp(24px, 4vw, 32px)", letterSpacing: "-0.03em" }}>The Goody Hearts Club &lt;3</p>
 
-        <Button variant="coral" size="lg" onClick={() => navigate("upload")}>Submit another piece</Button>
+        <Button variant="coral" size="lg" onClick={() => { setSubmitted(false); setFile(null); setPreview(null); setFields({ name: "", email: "", title: "", instagram: "", tiktok: "", behance: "", note: "" }); }}>Submit another piece</Button>
       </div>);
 
   }
