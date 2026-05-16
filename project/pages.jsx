@@ -628,6 +628,8 @@ function UploadPage({ navigate }) {
   const [fileError, setFileError] = uS(false);
   const set = (k) => (e) => setFields((f) => ({ ...f, [k]: e.target.value }));
 
+  uE(() => { if (submitted) window.scrollTo({ top: 0, behavior: "instant" }); }, [submitted]);
+
   const handleFile = (f) => {
     if (!f) return;
     setFile(f);
