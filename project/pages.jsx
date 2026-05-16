@@ -779,7 +779,6 @@ function UploadPage({ navigate }) {
         </Field>
 
         <div className="gh-form-actions" style={{ display: "flex", justifyContent: "flex-end", gap: 12, marginTop: 8 }}>
-          <Button variant="outline" size="lg" type="button" onClick={() => navigate("home")}>Cancel</Button>
           <Button variant="coral" size="lg" type="submit" disabled={sending}>
             {sending ? "Sending…" : "Submit for review"}
           </Button>
